@@ -319,7 +319,6 @@ public function register()
         $username = $this->request->getPost('username');
         $password = $this->request->getPost('password');
         $email = $this->request->getPost('email');
-        $nohp = $this->request->getPost('nohp');
         
         // Hash the password using MD5
         $hashedPassword = md5($password);
@@ -328,8 +327,7 @@ public function register()
             'username' => $username,
             'password' => $hashedPassword, 
             'email' => $email, 
-            'nohp' => $nohp, 
-            'id_level' => 3, 
+            'level' => 'pengguna', 
         );
 
         // Initialize the model
@@ -341,11 +339,11 @@ public function register()
     
 }
 
-public function persegi()
+public function l_persegi()
 	{
 		$model= new M_siapake();
 
-        $data['oke'] = $model->tampil('rumus');
+        $data['oke'] = $model->tampil('history');
 		$where = array('id_setting' => '1');
 		$data['yogi'] = $model->getWhere1('setting', $where)->getRow();
         $id_user = session()->get('id');
@@ -357,9 +355,625 @@ public function persegi()
     $model->logActivity($activityLog);
 	echo view('header', $data);
 	echo view('menu');
-    echo view('persegi');
+    echo view('l_persegi');
     echo view('footer');
 	}
+
+    public function simpan_history_l_persegi()
+    {
+        $model = new M_siapake();
+        
+        // Ambil ID User dari session
+        $id_user = session()->get('id');
+    
+        // Ambil nilai sisi dari form
+        $sisi = $this->request->getPost('sisi');
+    
+        // Buat format hasil
+        $hasil = "L = {$sisi} x {$sisi} = " . ($sisi * $sisi);
+    
+        // Data yang akan disimpan ke dalam tabel history
+        $yoga = [
+            'id_user' => $id_user,
+            'hasil'   => $hasil, // Memasukkan hasil langsung
+            'waktu'   => date('Y-m-d H:i:s')
+        ];
+    
+        // Simpan data ke tabel 'history' menggunakan method 'tambah' dari model
+        $model->tambah('history', $yoga);
+    
+        // Redirect kembali ke halaman perhitungan luas persegi
+        return redirect()->to(base_url('home/l_persegi'))->with('success', 'Perhitungan berhasil disimpan.');
+    }
+
+
+    public function l_persegi_panjang()
+	{
+		$model= new M_siapake();
+
+        $data['oke'] = $model->tampil('history');
+		$where = array('id_setting' => '1');
+		$data['yogi'] = $model->getWhere1('setting', $where)->getRow();
+        $id_user = session()->get('id');
+    $activityLog = [
+        'id_user' => $id_user,
+        'menu' => 'Masuk ke Rumus persegi',
+        'time' => date('Y-m-d H:i:s')
+    ];
+    $model->logActivity($activityLog);
+	echo view('header', $data);
+	echo view('menu');
+    echo view('l_persegi_panjang');
+    echo view('footer');
+	}
+
+    public function simpan_history_l_persegi_panjang()
+{
+    $model = new M_siapake();
+    
+    // Ambil ID User dari session
+    $id_user = session()->get('id');
+
+    // Ambil nilai sisi dari form
+    $panjang = $this->request->getPost('panjang');
+    $lebar = $this->request->getPost('lebar');
+
+    $luas = $panjang * $lebar;
+
+    // Format hasil
+    $hasil = "L = P ={$panjang} x L ={$lebar} = {$luas}";
+
+    // Data yang akan disimpan ke dalam tabel history
+    $yoga = [
+        'id_user' => $id_user,
+        'hasil'   => $hasil, // Memasukkan hasil langsung
+        'waktu'   => date('Y-m-d H:i:s')
+    ];
+
+    // Simpan data ke tabel 'history' menggunakan method 'tambah' dari model
+    $model->tambah('history', $yoga);
+
+    // Redirect kembali ke halaman perhitungan luas persegi
+    return redirect()->to(base_url('home/l_persegi'))->with('success', 'Perhitungan berhasil disimpan.');
+}
+
+
+
+public function l_segitiga()
+	{
+		$model= new M_siapake();
+
+        $data['oke'] = $model->tampil('history');
+		$where = array('id_setting' => '1');
+		$data['yogi'] = $model->getWhere1('setting', $where)->getRow();
+        $id_user = session()->get('id');
+    $activityLog = [
+        'id_user' => $id_user,
+        'menu' => 'Masuk ke Rumus persegi',
+        'time' => date('Y-m-d H:i:s')
+    ];
+    $model->logActivity($activityLog);
+	echo view('header', $data);
+	echo view('menu');
+    echo view('l_segitiga');
+    echo view('footer');
+	}
+
+    public function simpan_history_l_segitiga()
+{
+    $model = new M_siapake();
+    
+    // Ambil ID User dari session
+    $id_user = session()->get('id');
+
+    // Ambil nilai sisi dari form
+    // Ambil nilai alas dan tinggi dari form
+    $alas = $this->request->getPost('alas');
+    $tinggi = $this->request->getPost('tinggi');
+
+    $luas = 0.5 * $alas * $tinggi;
+
+    // Format hasil
+    $hasil = "L = ½ × {$alas} × {$tinggi} = {$luas}";
+
+    // Data yang akan disimpan ke dalam tabel history
+    $yoga = [
+        'id_user' => $id_user,
+        'hasil'   => $hasil, // Memasukkan hasil langsung
+        'waktu'   => date('Y-m-d H:i:s')
+    ];
+
+    // Simpan data ke tabel 'history' menggunakan method 'tambah' dari model
+    $model->tambah('history', $yoga);
+
+    // Redirect kembali ke halaman perhitungan luas persegi
+    return redirect()->to(base_url('home/l_persegi'))->with('success', 'Perhitungan berhasil disimpan.');
+}
+
+
+
+public function l_jajar_genjang()
+	{
+		$model= new M_siapake();
+
+        $data['oke'] = $model->tampil('history');
+		$where = array('id_setting' => '1');
+		$data['yogi'] = $model->getWhere1('setting', $where)->getRow();
+        $id_user = session()->get('id');
+    $activityLog = [
+        'id_user' => $id_user,
+        'menu' => 'Masuk ke Rumus persegi',
+        'time' => date('Y-m-d H:i:s')
+    ];
+    $model->logActivity($activityLog);
+	echo view('header', $data);
+	echo view('menu');
+    echo view('l_jajar_genjang');
+    echo view('footer');
+	}
+
+    public function simpan_history_l_jajar_genjang()
+{
+    $model = new M_siapake();
+    
+    // Ambil ID User dari session
+    $id_user = session()->get('id');
+
+    // Ambil nilai sisi dari form
+    // Ambil nilai alas dan tinggi dari form
+    $alas = $this->request->getPost('alas');
+    $tinggi = $this->request->getPost('tinggi');
+
+    $luas = $alas * $tinggi;
+
+    // Format hasil
+    $hasil = "L = L ={$alas} × t ={$tinggi} = {$luas}";
+
+    // Data yang akan disimpan ke dalam tabel history
+    $yoga = [
+        'id_user' => $id_user,
+        'hasil'   => $hasil, // Memasukkan hasil langsung
+        'waktu'   => date('Y-m-d H:i:s')
+    ];
+
+    // Simpan data ke tabel 'history' menggunakan method 'tambah' dari model
+    $model->tambah('history', $yoga);
+
+    // Redirect kembali ke halaman perhitungan luas persegi
+    return redirect()->to(base_url('home/l_persegi'))->with('success', 'Perhitungan berhasil disimpan.');
+}
+
+
+
+
+public function v_kubus()
+	{
+		$model= new M_siapake();
+
+        $data['oke'] = $model->tampil('history');
+		$where = array('id_setting' => '1');
+		$data['yogi'] = $model->getWhere1('setting', $where)->getRow();
+        $id_user = session()->get('id');
+    $activityLog = [
+        'id_user' => $id_user,
+        'menu' => 'Masuk ke Rumus persegi',
+        'time' => date('Y-m-d H:i:s')
+    ];
+    $model->logActivity($activityLog);
+	echo view('header', $data);
+	echo view('menu');
+    echo view('v_kubus');
+    echo view('footer');
+	}
+
+    public function simpan_history_v_kubus()
+    {
+        $model = new M_siapake();
+        
+        // Ambil ID User dari session
+        $id_user = session()->get('id');
+    
+        // Ambil nilai sisi dari form
+        $sisi = $this->request->getPost('sisi');
+    
+        // Buat format hasil
+        $volume = pow($sisi, 3); // Volume = sisi^3
+
+        // Buat format hasil
+        $hasil = "V = {$sisi}³ = {$volume}";
+    
+        // Data yang akan disimpan ke dalam tabel history
+        $yoga = [
+            'id_user' => $id_user,
+            'hasil'   => $hasil, // Memasukkan hasil langsung
+            'waktu'   => date('Y-m-d H:i:s')
+        ];
+    
+        // Simpan data ke tabel 'history' menggunakan method 'tambah' dari model
+        $model->tambah('history', $yoga);
+    
+        // Redirect kembali ke halaman perhitungan luas persegi
+        return redirect()->to(base_url('home/l_persegi'))->with('success', 'Perhitungan berhasil disimpan.');
+    }
+
+
+    public function v_balok()
+	{
+		$model= new M_siapake();
+
+        $data['oke'] = $model->tampil('history');
+		$where = array('id_setting' => '1');
+		$data['yogi'] = $model->getWhere1('setting', $where)->getRow();
+        $id_user = session()->get('id');
+    $activityLog = [
+        'id_user' => $id_user,
+        'menu' => 'Masuk ke Rumus persegi',
+        'time' => date('Y-m-d H:i:s')
+    ];
+    $model->logActivity($activityLog);
+	echo view('header', $data);
+	echo view('menu');
+    echo view('v_balok');
+    echo view('footer');
+	}
+
+    public function simpan_history_v_balok()
+    {
+        $model = new M_siapake();
+        
+        // Ambil ID User dari session
+        $id_user = session()->get('id');
+    
+        // Ambil nilai sisi dari form
+        $panjang = $this->request->getPost('panjang');
+        $lebar = $this->request->getPost('lebar');
+        $tinggi = $this->request->getPost('tinggi');
+    
+        // Buat format hasil
+        $volume = $panjang * $lebar * $tinggi; // Volume = panjang × lebar × tinggi
+
+    // Buat format hasil
+    $hasil = "V = p ={$panjang} × L ={$lebar} × t ={$tinggi} = {$volume}";
+    
+        // Data yang akan disimpan ke dalam tabel history
+        $yoga = [
+            'id_user' => $id_user,
+            'hasil'   => $hasil, // Memasukkan hasil langsung
+            'waktu'   => date('Y-m-d H:i:s')
+        ];
+    
+        // Simpan data ke tabel 'history' menggunakan method 'tambah' dari model
+        $model->tambah('history', $yoga);
+    
+        // Redirect kembali ke halaman perhitungan luas persegi
+        return redirect()->to(base_url('home/l_persegi'))->with('success', 'Perhitungan berhasil disimpan.');
+    }
+
+
+
+    public function v_tabung()
+	{
+		$model= new M_siapake();
+
+        $data['oke'] = $model->tampil('history');
+		$where = array('id_setting' => '1');
+		$data['yogi'] = $model->getWhere1('setting', $where)->getRow();
+        $id_user = session()->get('id');
+    $activityLog = [
+        'id_user' => $id_user,
+        'menu' => 'Masuk ke Rumus persegi',
+        'time' => date('Y-m-d H:i:s')
+    ];
+    $model->logActivity($activityLog);
+	echo view('header', $data);
+	echo view('menu');
+    echo view('v_tabung');
+    echo view('footer');
+	}
+
+    public function simpan_history_v_tabung()
+    {
+        $model = new M_siapake();
+        
+        // Ambil ID User dari session
+        $id_user = session()->get('id');
+    
+        // Ambil nilai sisi dari form
+        $jariJari = $this->request->getPost('jariJari');
+    $tinggi = $this->request->getPost('tinggi');
+    
+        // Buat format hasil
+        $volume = M_PI * pow($jariJari, 2) * $tinggi; // Volume = π × r² × t
+
+    // Format hasil perhitungan
+    $hasil = "V = π × r² × t = π × ({$jariJari}²) × {$tinggi} = " . round($volume, 2);
+    
+        // Data yang akan disimpan ke dalam tabel history
+        $yoga = [
+            'id_user' => $id_user,
+            'hasil'   => $hasil, // Memasukkan hasil langsung
+            'waktu'   => date('Y-m-d H:i:s')
+        ];
+    
+        // Simpan data ke tabel 'history' menggunakan method 'tambah' dari model
+        $model->tambah('history', $yoga);
+    
+        // Redirect kembali ke halaman perhitungan luas persegi
+        return redirect()->to(base_url('home/l_persegi'))->with('success', 'Perhitungan berhasil disimpan.');
+    }
+
+
+    public function v_kerucut()
+	{
+		$model= new M_siapake();
+
+        $data['oke'] = $model->tampil('history');
+		$where = array('id_setting' => '1');
+		$data['yogi'] = $model->getWhere1('setting', $where)->getRow();
+        $id_user = session()->get('id');
+    $activityLog = [
+        'id_user' => $id_user,
+        'menu' => 'Masuk ke Rumus persegi',
+        'time' => date('Y-m-d H:i:s')
+    ];
+    $model->logActivity($activityLog);
+	echo view('header', $data);
+	echo view('menu');
+    echo view('v_kerucut');
+    echo view('footer');
+	}
+
+    public function simpan_history_v_kerucut()
+    {
+        $model = new M_siapake();
+        
+        // Ambil ID User dari session
+        $id_user = session()->get('id');
+    
+        // Ambil nilai sisi dari form
+        $jariJari = $this->request->getPost('jariJari');
+        $tinggi = $this->request->getPost('tinggi');
+    
+        // Buat format hasil
+        $volume = (1 / 3) * M_PI * pow($jariJari, 2) * $tinggi;
+
+    // Format hasil perhitungan
+    $hasil = "V = (1/3) × π × r² × t = (1/3) × π × ({$jariJari}²) × {$tinggi} = " . round($volume, 2);
+    
+        // Data yang akan disimpan ke dalam tabel history
+        $yoga = [
+            'id_user' => $id_user,
+            'hasil'   => $hasil, // Memasukkan hasil langsung
+            'waktu'   => date('Y-m-d H:i:s')
+        ];
+    
+        // Simpan data ke tabel 'history' menggunakan method 'tambah' dari model
+        $model->tambah('history', $yoga);
+    
+        // Redirect kembali ke halaman perhitungan luas persegi
+        return redirect()->to(base_url('home/l_persegi'))->with('success', 'Perhitungan berhasil disimpan.');
+    }
+
+
+    public function v_bola()
+	{
+		$model= new M_siapake();
+
+        $data['oke'] = $model->tampil('history');
+		$where = array('id_setting' => '1');
+		$data['yogi'] = $model->getWhere1('setting', $where)->getRow();
+        $id_user = session()->get('id');
+    $activityLog = [
+        'id_user' => $id_user,
+        'menu' => 'Masuk ke Rumus persegi',
+        'time' => date('Y-m-d H:i:s')
+    ];
+    $model->logActivity($activityLog);
+	echo view('header', $data);
+	echo view('menu');
+    echo view('v_bola');
+    echo view('footer');
+	}
+
+    public function simpan_history_v_bola()
+{
+    $model = new M_siapake();
+    
+    // Ambil ID User dari session
+    $id_user = session()->get('id');
+
+    // Ambil nilai jari-jari dari form
+    $jariJari = $this->request->getPost('jariJari');
+
+    // Hitung volume bola
+    $volume = (4 / 3) * M_PI * pow($jariJari, 3); // Volume = (4/3) × π × r³
+
+    // Format hasil perhitungan
+    $hasil = "V = (4/3) × π × r³ = (4/3) × π × ({$jariJari}³) = " . round($volume, 2);
+    
+    // Data yang akan disimpan ke dalam tabel history
+    $yoga = [
+        'id_user' => $id_user,
+        'hasil'   => $hasil, // Memasukkan hasil langsung
+        'waktu'   => date('Y-m-d H:i:s')
+    ];
+
+    // Simpan data ke tabel 'history' menggunakan method 'tambah' dari model
+    $model->tambah('history', $yoga);
+
+    // Mengirimkan respons ke client
+    return $this->response->setJSON([
+        'success' => true,
+        'id' => $model->insertID(),
+        'hasil' => $hasil
+    ]);
+}
+
+
+
+public function turunan()
+	{
+		$model= new M_siapake();
+
+        $data['oke'] = $model->tampil('history');
+		$where = array('id_setting' => '1');
+		$data['yogi'] = $model->getWhere1('setting', $where)->getRow();
+        $id_user = session()->get('id');
+    $activityLog = [
+        'id_user' => $id_user,
+        'menu' => 'Masuk ke Rumus persegi',
+        'time' => date('Y-m-d H:i:s')
+    ];
+    $model->logActivity($activityLog);
+	echo view('header', $data);
+	echo view('menu');
+    echo view('turunan');
+    echo view('footer');
+	}
+
+    public function simpan_history_turunan()
+{
+    $model = new M_siapake();
+    
+    // Ambil ID User dari session
+    $id_user = session()->get('id');
+
+    // Ambil nilai fungsi dan hasil turunan dari form
+    $fungsi = $this->request->getPost('fungsi');
+    $turunan = $this->request->getPost('turunan');
+
+    // Format hasil turunan
+    $hasil = "Turunan dari fungsi {$fungsi} adalah: {$turunan}";
+
+    // Data yang akan disimpan ke dalam tabel history
+    $data_history = [
+        'id_user' => $id_user,
+        'hasil'   => $hasil, // Memasukkan hasil turunan langsung
+        'waktu'   => date('Y-m-d H:i:s')
+    ];
+
+    // Simpan data ke tabel 'history' menggunakan method 'tambah' dari model
+    $model->tambah('history', $data_history);
+
+    // Redirect kembali ke halaman perhitungan turunan
+    return redirect()->to(base_url('home/l_perhitungan_turunan'))->with('success', 'Perhitungan turunan berhasil disimpan.');
+}
+
+
+public function limit()
+	{
+		$model= new M_siapake();
+
+        $data['oke'] = $model->tampil('history');
+		$where = array('id_setting' => '1');
+		$data['yogi'] = $model->getWhere1('setting', $where)->getRow();
+        $id_user = session()->get('id');
+    $activityLog = [
+        'id_user' => $id_user,
+        'menu' => 'Masuk ke Rumus persegi',
+        'time' => date('Y-m-d H:i:s')
+    ];
+    $model->logActivity($activityLog);
+	echo view('header', $data);
+	echo view('menu');
+    echo view('limit');
+    echo view('footer');
+	}
+
+    public function simpan_history_limit()
+{
+    $model = new M_siapake();
+
+    // Ambil ID User dari session
+    $id_user = session()->get('id');
+
+    // Ambil nilai fungsi dan hasil limit dari form
+    $fungsi = $this->request->getPost('fungsi');
+    $hasil = $this->request->getPost('hasil'); // Hasil limit perhitungan
+
+    // Format hasil limit
+    $hasil_limit = "Limit dari fungsi {$fungsi} adalah: {$hasil}";
+
+    // Data yang akan disimpan ke dalam tabel history
+    $data_history = [
+        'id_user' => $id_user,
+        'hasil'   => $hasil_limit, // Menyimpan hasil limit perhitungan
+        'waktu'   => date('Y-m-d H:i:s')
+    ];
+
+    // Simpan data ke tabel 'history' menggunakan method 'tambah' dari model
+    $model->tambah('history', $data_history);
+
+    // Redirect kembali ke halaman perhitungan limit
+    return redirect()->to(base_url('home/l_perhitungan_limit'))->with('success', 'Perhitungan limit berhasil disimpan.');
+}
+
+
+public function history()
+	{
+		$model= new M_siapake();
+
+        $id_user = session()->get('id');
+    
+    // Ambil data history berdasarkan id_user
+    $data['oke'] = $model->tampilwhere('history', ['id_user' => $id_user]);
+		$where = array('id_setting' => '1');
+		$data['yogi'] = $model->getWhere1('setting', $where)->getRow();
+        $id_user = session()->get('id');
+    $activityLog = [
+        'id_user' => $id_user,
+        'menu' => 'Masuk ke Rumus persegi',
+        'time' => date('Y-m-d H:i:s')
+    ];
+    $model->logActivity($activityLog);
+	echo view('header', $data);
+	echo view('menu');
+    echo view('history');
+    echo view('footer');
+	}
+
+    public function hapus_history($id)
+    {
+        $model = new M_siapake();
+        // $this->logUserActivity('Menghapus Pemesanan Permanent');
+        $where = array('id_history' => $id);
+        $model->hapus('history', $where);
+    
+        return redirect()->to('home/history');
+    }
+
+
+
+public function get_history()
+{
+    $model = new M_siapake();
+
+    // Ambil id_user dari session
+    $id_user = session()->get('id');
+    
+    // Ambil data history berdasarkan id_user
+    $data['history'] = $model->tampilwhere('history', ['id_user' => $id_user]);
+
+    // Ambil data setting jika diperlukan
+    $where = ['id_setting' => '1'];
+    $data['yogi'] = $model->getWhere1('setting', $where)->getRow();
+
+    // Log aktivitas user
+    $activityLog = [
+        'id_user' => $id_user,
+        'menu' => 'Melihat History Perhitungan Luas Persegi',
+        'time' => date('Y-m-d H:i:s')
+    ];
+    $model->logActivity($activityLog);
+
+    // Debug: Log data history yang didapat
+    log_message('debug', 'Data History: ' . print_r($data['history'], true));
+
+    // Return data history dalam format JSON
+    return $this->response->setJSON($data['history']);
+}
+
+
 
 
     public function t_persegi()
@@ -409,564 +1023,6 @@ public function persegi()
     
 
 
-
-
-    public function soft_delete(){
-
-        $model = new M_siapake;
-        $data['oke'] = $model->tampilrestore('lowongan');
-        $where = array('id_setting' => '1');
-        $data['yogi'] = $model->getWhere1('setting', $where)->getRow();
-        $id_user = session()->get('id');
-        $activityLog = [
-            'id_user' => $id_user,
-            'menu' => 'Masuk ke Soft Delete',
-            'time' => date('Y-m-d H:i:s')
-        ];
-        $model->logActivity($activityLog);
-        echo view('header', $data);
-        echo view('menu');
-        echo view('soft_delete', $data);
-        echo view('footer');
-    }
-
-    public function restore_edit(){
-
-        $model = new M_siapake;
-        $data['oke'] = $model->tampil('lowongan_backup');
-        $where = array('id_setting' => '1');
-        $data['yogi'] = $model->getWhere1('setting', $where)->getRow();
-        $id_user = session()->get('id');
-        $activityLog = [
-            'id_user' => $id_user,
-            'menu' => 'Masuk ke Restore Edit Lowongan',
-            'time' => date('Y-m-d H:i:s')
-        ];
-        $model->logActivity($activityLog);
-        echo view('header', $data);
-        echo view('menu');
-        echo view('restore_edit', $data);
-        echo view('footer');
-    }
-
-
-
-    public function hapus_lowongan($id)
-    {
-        $model = new M_siapake();
-        $where = array('id_lowongan' => $id);
-        $array = array(
-            'deleted_at' => date('Y-m-d H:i:s'),
-        );
-        $model->edit('lowongan', $array, $where);
-        // $this->loglowonganActivity('Menghapus Pemesanan');
-
-        return redirect()->to('home/lowongan');
-    }
-
-    public function hapus_lowongan_permanent($id)
-    {
-        $model = new M_siapake();
-        // $this->logUserActivity('Menghapus Pemesanan Permanent');
-        $where = array('id_lowongan' => $id);
-        $model->hapus('lowongan', $where);
-    
-        return redirect()->to('home/lowongan');
-    }
-
-
-    public function restore_lowongan($id)
-    {
-        $model = new M_siapake();
-        $where = array('id_lowongan' => $id);
-        $array = array(
-            'deleted_at' => NULL, // Mengatur deleted_at menjadi null
-        );
-        $model->edit('lowongan', $array, $where);
-    
-        return redirect()->to('home/lowongan');
-    }
-
-
-
-   
-
-public function e_lowongan($id_lowongan)
-	{
-		$model= new M_siapake();
-        $whereuser = array('id_lowongan' => $id_lowongan);
-        $data['oke'] = $model->getWhere1('lowongan', $whereuser)->getRow();
-		$where = array('id_setting' => '1');
-		$data['yogi'] = $model->getWhere1('setting', $where)->getRow();
-        $id_user = session()->get('id');
-    $activityLog = [
-        'id_user' => $id_user,
-        'menu' => 'Masuk ke Edit Lowongan',
-        'time' => date('Y-m-d H:i:s')
-    ];
-    $model->logActivity($activityLog);
-	echo view('header', $data);
-	echo view('menu');
-    echo view('e_lowongan');
-	}
-
-
-    public function aksi_e_lowongan()
-    {
-        if(session()->get('id') > 0) {
-            $nama_lowongan = $this->request->getPost('nama_lowongan');
-            $deskripsi = $this->request->getPost('deskripsi');
-            $id = $this->request->getPost('id_lowongan');
-            // Hash the deskripsi using MD5
-            $model = new M_siapake;
-            $oldData = $model->getWhere('lowongan', ['id_lowongan' => $id]);
-        
-                // Simpan data lama ke tabel backup
-                if ($oldData) {
-                    $backupData = [
-                        'id_lowongan' => $oldData->id_lowongan,  // integer
-                        'nama_lowongan' => $oldData->nama_lowongan,     
-                        'deskripsi' => $oldData->deskripsi,    
-                        'backup_by' => $oldData->backup_by,         // integer
-                        'backup_at' => $oldData->backup_at,         // datetime
-                    ];
-        
-                    // Debug: cek hasil insert ke tabel backup
-                    if ($model->saveToBackup('lowongan_backup', $backupData)) {
-                        echo "Data backup berhasil disimpan!";
-                    } else {
-                        echo "Gagal menyimpan data ke backup.";
-                    }
-                } else {
-                    echo "Data lama tidak ditemukan.";
-                }
-        
-                // Data baru yang akan diupdate
-                $yoga = array(
-                   'nama_lowongan' => $nama_lowongan,
-                   'deskripsi' => $deskripsi,
-                        'updated_by' => session()->get('id'),
-                        'updated_at' => date('Y-m-d H:i:s'),
-                );
-        
-                // Update data di tabel pemesanan
-                $where = array('id_lowongan' => $id);
-                $model->edit('lowongan', $yoga, $where);
-    
-            // Redirect to the 'tb_user' page
-            return redirect()->to('home/lowongan');
-        } else {
-            // If no session or user is logged in, redirect to the login page
-            return redirect()->to('home/login');
-        }
-    }
-
-    public function aksi_restore_edit_lowongan($id)
-    {
-        $model = new M_siapake();
-        
-        $backupData = $model->getWhere('lowongan_backup', ['id_lowongan' => $id]);
-    
-        if ($backupData) {
-           
-            $restoreData = [
-                'nama_lowongan' => $backupData->nama_lowongan,
-                'deskripsi' => $backupData->deskripsi,
-               
-               
-                // tambahkan field lainnya sesuai dengan struktur tabel menu
-            ];
-            unset($restoreData['id_lowongan']);
-            $model->edit('lowongan', $restoreData, ['id_lowongan' => $id]);
-        }
-        
-        return redirect()->to('home/lowongan');
-    }
-   
-
-    public function karyawan()
-	{
-		$model= new M_siapake();
-
-       // Mengambil ID dari session
-
-       $data['oke'] = $model->tampil_karyawan();
-// $data['oke'] = $model->tampil('pelamar');
-
-
-		$where = array('id_setting' => '1');
-		$data['yogi'] = $model->getWhere1('setting', $where)->getRow();
-        $id_user = session()->get('id');
-    $activityLog = [
-        'id_user' => $id_user,
-        'menu' => 'Masuk ke Karyawan',
-        'time' => date('Y-m-d H:i:s')
-    ];
-    $model->logActivity($activityLog);
-	echo view('header', $data);
-	echo view('menu');
-    echo view('karyawan');
-    echo view('footer');
-	}
-
-
-    public function aksi_e_karyawan()
-    {
-        if(session()->get('id') > 0) {
-            $gaji = $this->request->getPost('gaji');
-            $id = $this->request->getPost('id_karyawan');
-            // Hash the deskripsi using MD5
-            $where = array('id_karyawan' => $id);
-
-
-            $yoga = array(
-                'gaji' => $gaji,
-            );
-    
-            // Initialize the model
-            $model = new M_siapake;
-            $model->edit('karyawan', $yoga, $where);
-    
-            // Redirect to the 'tb_user' page
-            return redirect()->to('home/karyawan');
-        } else {
-            // If no session or user is logged in, redirect to the login page
-            return redirect()->to('home/login');
-        }
-    }
-
-
-    public function lamaran()
-{
-    $model = new M_siapake();
-    $id_user = session()->get('id');
-    $id_level = session()->get('level'); // Ambil id_level dari session
-
-    // Cek apakah user adalah admin (id_level 1)
-    if ($id_level == 1 || $id_level == 2) {
-        // Jika admin, ambil semua pelamar
-        $data['oke'] = $model->tampilpelamar('pelamar');
-    } else {
-        // Jika bukan admin, ambil pelamar milik user tersebut
-        $where = array('id_user' => $id_user);
-        $data['oke'] = $model->tampilwherepelamar('pelamar', $where);
-    }
-
-    $where = array('id_setting' => '1');
-    $data['yogi'] = $model->getWhere1('setting', $where)->getRow();
-
-    $activityLog = [
-        'id_user' => $id_user,
-        'menu' => 'Masuk ke Lamaran',
-        'time' => date('Y-m-d H:i:s')
-    ];
-    $model->logActivity($activityLog);
-
-    echo view('header', $data);
-    echo view('menu');
-    echo view('lamaran');
-    echo view('footer');
-}
-
-
-
-
-
-    public function aksi_t_lamaran()
-{
-    if (session()->get('id') > 0) {
-        // Mengambil data dari input
-        $nama_pelamar = $this->request->getPost('nama_pelamar');
-        $umur = $this->request->getPost('umur');
-        $alamat = $this->request->getPost('alamat');
-        
-        // Mengambil file CV dan Surat
-        $cvFile = $this->request->getFile('cv');
-        $suratFile = $this->request->getFile('surat');
-
-        // Menyimpan file ke dalam folder uploads
-        $cvFileName = null;
-        $suratFileName = null;
-
-        if ($cvFile->isValid() && !$cvFile->hasMoved()) {
-            $cvFileName = $cvFile->getRandomName(); // Nama file acak untuk CV
-            $cvFile->move(FCPATH . 'uploads', $cvFileName); // Memindahkan file CV
-        }
-
-        if ($suratFile->isValid() && !$suratFile->hasMoved()) {
-            $suratFileName = $suratFile->getRandomName(); // Nama file acak untuk Surat
-            $suratFile->move(FCPATH . 'uploads', $suratFileName); // Memindahkan file Surat
-        }
-
-        // Mendapatkan id_lowongan dari permintaan
-        $id_lowongan = $this->request->getPost('id_lowongan');
-        $id_user = session()->get('id');
-
-        // Membuat array data untuk disimpan
-        $yoga = array(
-            'nama_pelamar' => $nama_pelamar,
-            'umur' => $umur, 
-            'alamat' => $alamat, 
-            'cv' => $cvFileName,  // Nama file CV
-            'surat' => $suratFileName,  // Nama file Surat
-            'id_user' => $id_user,
-            'id_lowongan' => $id_lowongan, 
-            'status' => 'Pending',
-        );
-
-        // Inisialisasi model
-        $model = new M_siapake;
-        $model->tambah('pelamar', $yoga); // Menyimpan data ke database
-
-        // Redirect ke halaman 'lowongan'
-        return redirect()->to('home/lamaran');
-    } else {
-        // Redirect ke halaman login jika session tidak ada
-        return redirect()->to('home/login');
-    }
-}
-
-
-public function e_lamaran($id_pelamar)
-	{
-		$model= new M_siapake();
-        $whereuser = array('id_pelamar' => $id_pelamar);
-        $data['oke'] = $model->getWhere1('pelamar', $whereuser)->getRow();
-
-		$where = array('id_setting' => '1');
-		$data['yogi'] = $model->getWhere1('setting', $where)->getRow();
-        $id_user = session()->get('id');
-    $activityLog = [
-        'id_user' => $id_user,
-        'menu' => 'Masuk ke Edit Lamaran',
-        'time' => date('Y-m-d H:i:s')
-    ];
-    $model->logActivity($activityLog);
-	echo view('header', $data);
-	echo view('menu');
-    echo view('e_lamaran');
-	}
-
-    public function aksi_e_lamaran()
-{
-    if(session()->get('id') > 0) {
-        $nama_pelamar = $this->request->getPost('nama_pelamar');
-        $umur = $this->request->getPost('umur');
-        $alamat = $this->request->getPost('alamat');
-        $id = $this->request->getPost('id_pelamar');
-
-        // Ambil data pelamar sebelumnya
-        $model = new M_siapake;
-        $pelamarLama = $model->get_detail('pelamar', ['id_pelamar' => $id]);
-
-        $cvFile = $this->request->getFile('cv');
-        $suratFile = $this->request->getFile('surat');
-
-        // Menyimpan file ke dalam folder uploads
-        $cvFileName = $pelamarLama->cv; // Gunakan CV lama sebagai default
-        $suratFileName = $pelamarLama->surat; // Gunakan surat lama sebagai default
-
-        // Proses file CV baru jika ada
-        if ($cvFile->isValid() && !$cvFile->hasMoved()) {
-            $cvFileName = $cvFile->getRandomName(); // Nama file acak untuk CV
-            $cvFile->move(FCPATH . 'uploads', $cvFileName); // Memindahkan file CV
-
-            // Hapus file CV lama jika ada
-            if (!empty($pelamarLama->cv)) {
-                $oldCvPath = FCPATH . 'uploads/' . $pelamarLama->cv;
-                if (file_exists($oldCvPath)) {
-                    unlink($oldCvPath);
-                }
-            }
-        }
-
-        // Proses file surat baru jika ada
-        if ($suratFile->isValid() && !$suratFile->hasMoved()) {
-            $suratFileName = $suratFile->getRandomName(); // Nama file acak untuk Surat
-            $suratFile->move(FCPATH . 'uploads', $suratFileName); // Memindahkan file Surat
-
-            // Hapus file surat lama jika ada
-            if (!empty($pelamarLama->surat)) {
-                $oldSuratPath = FCPATH . 'uploads/' . $pelamarLama->surat;
-                if (file_exists($oldSuratPath)) {
-                    unlink($oldSuratPath);
-                }
-            }
-        }
-
-        $where = array('id_pelamar' => $id);
-
-        $yoga = array(
-            'nama_pelamar' => $nama_pelamar,
-            'umur' => $umur, 
-            'alamat' => $alamat, 
-            'cv' => $cvFileName, 
-            'surat' => $suratFileName,  
-        );
-
-        $model->edit('pelamar', $yoga, $where);
-
-        // Redirect to the 'lamaran' page
-        return redirect()->to('home/lamaran');
-    } else {
-        // If no session or user is logged in, redirect to the login page
-        return redirect()->to('home/login');
-    }
-}
-// public function kirim_pengumuman_diterima($id_lamaran)
-// {
-//     $model = new M_siapake;
-
-//     // 1. Ambil data pelamar
-//     $pelamar = $model->get_pelamar_by_id($id_lamaran);
-
-//     // 2. Ambil email dari user
-//     $user = $model->get_user_by_id($pelamar->id_user);
-
-//     // 3. Update status pelamar menjadi Diterima
-//     $model->edit('pelamar', 
-//         ['status' => 'Diterima'], 
-//         ['id_pelamar' => $id_lamaran]
-//     );
-
-//     // 4. Update id_level user menjadi 4
-//     $model->edit('user', 
-//         ['id_level' => 4], 
-//         ['id' => $pelamar->id_user]
-//     );
-
-//     // 5. Tambah data ke tabel karyawan
-//     $data_karyawan = [
-//         'id_pelamar' => $id_lamaran,
-//         'id_user' => $pelamar->id_user
-//     ];
-//     $model->tambah('karyawan', $data_karyawan);
-
-//     // 6. Kirim email dengan nama_pelamar
-//     $email_terkirim = $this->kirim_email_penerimaan($user->email, $pelamar->nama_pelamar);
-
-//     // 7. Berikan respon
-//     if ($email_terkirim) {
-//         session()->setFlashdata('success', 'Email penerimaan berhasil dikirim, status user diupdate, dan data karyawan ditambahkan');
-//     } else {
-//         session()->setFlashdata('error', 'Gagal mengirim email penerimaan');
-//     }
-
-//     // 8. Redirect kembali
-//     return redirect()->back();
-// }
-
-// public function kirim_pengumuman_ditolak($id_lamaran)
-// {
-
-
-// $model = new M_siapake;
-
-// $pelamar = $model->get_pelamar_by_id($id_lamaran);
-
-// // Ambil email dari user
-// $user = $model->get_user_by_id($pelamar->id_user);
-
-// $model->edit('pelamar', 
-// ['status' => 'Ditolak'], 
-// ['id_pelamar' => $id_lamaran]
-// );
-
-// // Kirim email dengan nama_pelamar
-// $email_terkirim = $this->kirim_email_penerimaan_ditolak($user->email, $pelamar->nama_pelamar);
-
-//     // 4. Berikan respon
-//     if ($email_terkirim) {
-//         session()->setFlashdata('success', 'Email penerimaan berhasil dikirim');
-//     } else {
-//         session()->setFlashdata('error', 'Gagal mengirim email penerimaan');
-//     }
-
-//     // 5. Redirect kembali
-//     return redirect()->back();
-// }
-
-// private function kirim_email_penerimaan($email, $nama)
-// {
-//     $mail = new PHPMailer(true);
-
-//     try {
-//         $mail->isSMTP();
-//         $mail->Host       = 'smtp.gmail.com';
-//         $mail->SMTPAuth   = true;
-//         $mail->Username   = 'kaizenesia@gmail.com';
-//         $mail->Password   = 'kjmc gjkt bzuh qglc';
-//         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-//         $mail->Port       = 587;
-
-//         $mail->setFrom('kaizenesia@gmail.com', 'PT. Matcha Qiong');
-//         $mail->addAddress($email, $nama);
-
-//         $mail->isHTML(true);
-//         $mail->Subject = 'Selamat! Anda Diterima di PT. Matcha Qiong';
-//         $mail->Body    = "
-//             <html>
-//             <body>
-//                 <h2>Selamat, $nama!</h2>
-//                 <p>Kami dengan senang hati mengumumkan bahwa Anda DITERIMA bekerja di PT. Matcha Qiong.</p>
-//                 <p>Silakan menunggu informasi lebih lanjut untuk proses selanjutnya.</p>
-//                 <br>
-//                 <p>Salam hangat,<br>Tim Rekrutmen PT. Matcha Qiong</p>
-//             </body>
-//             </html>
-//         ";
-
-//         $mail->send();
-//         return true;
-//     } catch (\Exception $e) {
-//         log_message('error', 'Gagal mengirim email: ' . $e->getMessage());
-//         return false;
-//     }
-// }
-
-
-// private function kirim_email_penerimaan_ditolak($email, $nama)
-// {
-//     $mail = new PHPMailer(true);
-
-//     try {
-//         $mail->isSMTP();
-//         $mail->Host       = 'smtp.gmail.com';
-//         $mail->SMTPAuth   = true;
-//         $mail->Username   = 'kaizenesia@gmail.com';
-//         $mail->Password   = 'kjmc gjkt bzuh qglc';
-//         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-//         $mail->Port       = 587;
-
-//         $mail->setFrom('kaizenesia@gmail.com', 'PT. Matcha Qiong');
-//         $mail->addAddress($email, $nama);
-
-//         $mail->isHTML(true);
-//         $mail->Subject = 'Informasi Hasil Seleksi Lamaran di PT. Matcha Qiong';
-//         $mail->Body    = "
-//             <html>
-//             <body>
-//                 <h2>Kepada Yth. $nama,</h2>
-//                 <p>Terima kasih atas minat Anda untuk bergabung dengan PT. Matcha Qiong.</p>
-//                 <p>Setelah melalui proses seleksi yang komprehensif, kami sampaikan bahwa saat ini lamaran Anda belum dapat kami terima.</p>
-//                 <p>Kami menghargai waktu dan usaha yang telah Anda berikan dalam proses lamaran ini.</p>
-//                 <br>
-//                 <p>Kami mendorong Anda untuk terus mengembangkan kemampuan dan tidak menyerah. Kesempatan lain mungkin akan datang di masa depan.</p>
-//                 <br>
-//                 <p>Terima kasih,<br>Tim Rekrutmen PT. Matcha Qiong</p>
-//             </body>
-//             </html>
-//         ";
-
-//         $mail->send();
-//         return true;
-//     } catch (\Exception $e) {
-//         log_message('error', 'Gagal mengirim email: ' . $e->getMessage());
-//         return false;
-//     }
-// }
-
-
 public function resetpassword($id)
     {
         $model = new M_siapake();
@@ -982,11 +1038,13 @@ public function resetpassword($id)
     }
 
 
+    
+
 public function user()
 	{
 		$model= new M_siapake();
   
-        $data['oke'] = $model->tampil_user();
+        $data['oke'] = $model->tampilActive('user');
         
 		$where = array('id_setting' => '1');
 		$data['yogi'] = $model->getWhere1('setting', $where)->getRow();
@@ -1003,10 +1061,21 @@ public function user()
     echo view('footer');
 	}
 
+    public function hapus_user($id)
+    {
+        $model = new M_siapake();
+        $where = array('id_user' => $id);
+        $array = array(
+            'deleted_at' => date('Y-m-d H:i:s'),
+        );
+        $model->edit('user', $array, $where);
+        // $this->logUserActivity('Menghapus Pemesanan');
 
+        return redirect()->to('home/user');
+    }
     
 
-    public function hapus_user($id)
+    public function hapus_user_permanent($id)
     {
         $model = new M_siapake();
         // $this->logUserActivity('Menghapus Pemesanan Permanent');
@@ -1017,6 +1086,43 @@ public function user()
     }
 
 
+    public function restore_user($id)
+    {
+        $model = new M_siapake();
+        $where = array('id_user' => $id);
+        $array = array(
+            'deleted_at' => NULL, // Mengatur deleted_at menjadi null
+        );
+        $model->edit('user', $array, $where);
+    
+        return redirect()->to('home/user');
+    }
+
+
+    public function soft_delete(){
+
+        $model = new M_siapake;
+        $data['oke'] = $model->tampilrestore('user');
+        $where = array('id_setting' => '1');
+        $data['yogi'] = $model->getWhere1('setting', $where)->getRow();
+        $id_user = session()->get('id');
+        $activityLog = [
+            'id_user' => $id_user,
+            'menu' => 'Masuk ke Soft Delete',
+            'time' => date('Y-m-d H:i:s')
+        ];
+        $model->logActivity($activityLog);
+        echo view('header', $data);
+        echo view('menu');
+        echo view('soft_delete', $data);
+        echo view('footer');
+    }
+
+   
+
+
+
+
    
     
 
@@ -1024,7 +1130,6 @@ public function user()
 	{
 		$model= new M_siapake();
   
-        $data['yoga'] = $model->tampil('level');
 		$where = array('id_setting' => '1');
 		$data['yogi'] = $model->getWhere1('setting', $where)->getRow();
         $id_user = session()->get('id');
@@ -1044,7 +1149,6 @@ public function user()
 if(session()->get('id') > 0){
     $username = $this->request->getPost('username');
     $email = $this->request->getPost('email');
-    $nohp = $this->request->getPost('nohp');
     $level = $this->request->getPost('level');
 
     $password = md5('1');
@@ -1055,8 +1159,7 @@ if(session()->get('id') > 0){
         'username' => $username,
         'password' => $password,
         'email' => $email,
-        'nohp' => $nohp,
-        'id_level' => $level,
+        'level' => $level,
     );
 
     $model = new M_siapake;
@@ -1074,7 +1177,6 @@ public function e_user($id_user)
 
     $whereuser = array('id_user' => $id_user);
     $data['oke'] = $model->getWhere1('user', $whereuser)->getRow();
-    $data['yoga'] = $model->tampil('level');
     // Tambahkan currentLevel dari data pengguna
     $data['currentLevel'] = $data['oke']->level ?? ''; // Pastikan defaultnya kosong jika tidak ada data
 
@@ -1099,23 +1201,45 @@ public function aksi_e_user()
 {
     if(session()->get('id') > 0) {
         $username = $this->request->getPost('username');
-        $nohp = $this->request->getPost('nohp');
         $email = $this->request->getPost('email');
         $level = $this->request->getPost('level');
         $id = $this->request->getPost('id_user');
         // Hash the deskripsi using MD5
-        $where = array('id_user' => $id);
+        $model = new M_siapake;
+    $oldData = $model->getWhere('user', ['id_user' => $id]);
 
+        // Simpan data lama ke tabel backup
+        if ($oldData) {
+            $backupData = [
+                'id_user' => $oldData->id_user,  // integer
+                'username' => $oldData->username,     
+                'email' => $oldData->email,    
+                'level' => $oldData->level,     // integer
+                'backup_by' => $oldData->backup_by,         // integer
+                'backup_at' => $oldData->backup_at,         // datetime
+            ];
 
+            // Debug: cek hasil insert ke tabel backup
+            if ($model->saveToBackup('user_backup', $backupData)) {
+                echo "Data backup berhasil disimpan!";
+            } else {
+                echo "Gagal menyimpan data ke backup.";
+            }
+        } else {
+            echo "Data lama tidak ditemukan.";
+        }
+
+        // Data baru yang akan diupdate
         $yoga = array(
-            'username' => $username,
-            'nohp' => $nohp,
-            'email' => $email,
-            'id_level' => $level,
+           'username' => $username,
+           'email' => $email,
+                'level' => $level,
+                'updated_by' => session()->get('id'),
+                'updated_at' => date('Y-m-d H:i:s'),
         );
 
-        // Initialize the model
-        $model = new M_siapake;
+        // Update data di tabel pemesanan
+        $where = array('id_user' => $id);
         $model->edit('user', $yoga, $where);
 
         // Redirect to the 'tb_user' page
@@ -1127,6 +1251,47 @@ public function aksi_e_user()
 }
 
 
+
+public function restore_edit(){
+
+    $model = new M_siapake;
+    $data['oke'] = $model->tampil('user_backup');
+    $where = array('id_setting' => '1');
+    $data['yogi'] = $model->getWhere1('setting', $where)->getRow();
+    $id_user = session()->get('id');
+    $activityLog = [
+        'id_user' => $id_user,
+        'menu' => 'Masuk ke Restore Edit User',
+        'time' => date('Y-m-d H:i:s')
+    ];
+    $model->logActivity($activityLog);
+    echo view('header', $data);
+    echo view('menu');
+    echo view('restore_edit', $data);
+    echo view('footer');
+}
+
+public function aksi_restore_edit_user($id)
+{
+$model = new M_siapake();
+
+$backupData = $model->getWhere('user_backup', ['id_user' => $id]);
+
+if ($backupData) {
+   
+    $restoreData = [
+        'username' => $backupData->username,
+        'email' => $backupData->email,
+        'level' => $backupData->level,
+       
+        // tambahkan field lainnya sesuai dengan struktur tabel menu
+    ];
+    unset($restoreData['id_user']);
+    $model->edit('user', $restoreData, ['id_user' => $id]);
+}
+
+return redirect()->to('home/user');
+}
 
 
 

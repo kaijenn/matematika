@@ -11,11 +11,11 @@
                         ?>
                         <img src="<?= $foto_profil ?>" class="rounded-circle" style="width: 200px; height: 200px;" alt="Foto Profile"><br><br>
                         <form action="<?= base_url('home/editfoto')?>" method="post" enctype="multipart/form-data">
-                            <label for="foto" class="btn btn-warning px-3">Pilih Foto Profil Baru</label><br>
+                            <label for="foto" class="btn btn-info px-3">Pilih Foto Profil Baru</label><br>
                             <input class="file-input" type="file" id="foto" name="foto" accept="image/*" style="display: none;">
                             <span id="file-name"></span> 
                             <br>
-                            <button id="saveButton" class="btn btn-warning px-3" style="height: 40px; display: none;">Save</button>
+                            <button id="saveButton" class="btn btn-info px-3" style="height: 40px; display: none;">Save</button>
                         </form>
                     </div>
                     <div class="col-md-9">
@@ -28,15 +28,15 @@
                                 </div>
                                 <div class="form-group col-md-6 offset-md-4"> 
                                     <label for="status">Status</label>
-                                    <input type="text" id="status" class="form-control" value="<?= esc($yoga->id_level) ?>" readonly>
+                                    <input type="text" id="status" class="form-control" value="<?= esc($yoga->level) ?>" readonly>
                                 </div>
                                 <div class="form-group col-md-12 offset-md-4">
-                                    <button type="submit" class="btn btn-warning">Save Changes</button>
+                                    <button type="submit" class="btn btn-info">Save Changes</button>
                                 </div>
                             </div>
                         </form>
                         <div class="form-group col-md-12 offset-md-4 mt-4">
-                        <a href="<?= base_url('home/changepassword') ?>" class="btn btn-sm btn-warning">
+                        <a href="<?= base_url('home/changepassword') ?>" class="btn btn-sm btn-info">
     Change Password
 </a>
 

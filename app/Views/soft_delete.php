@@ -15,8 +15,9 @@
                                 <thead>
                                     <tr>
                                         <th>NO</th>
-                                        <th>Nama Lowongan</th>
-                                        <th>Deskripsi</th>
+                                        <th>Username</th>
+                                        <th>Email</th>
+                                        <th>Level</th>
                                       
                                         <th>Action</th>
                                     </tr>
@@ -28,17 +29,19 @@
                                     ?>
                                         <tr>
                                             <td><?= $no++ ?></td>
-                                            <td><?= ($okei->nama_lowongan) ?></td>
-                                            <td><?= ($okei->deskripsi) ?></td>
+                                            <td><?= ($okei->username) ?></td>
+                                            <td><?= ($okei->email) ?></td>
+                                            <td><?= ($okei->level) ?></td>
+                                         
                                          
 
                                             <td>
                                                 <!-- Edit button -->
-                                                <a href="<?= base_url('home/restore_lowongan/'.$okei->id_lowongan) ?>">
+                                                <a href="<?= base_url('home/restore_user/'.$okei->id_user) ?>">
                                             <button class="btn btn-info">Restore</button>
                                         </a>
 
-                                        <a href="<?= base_url('home/hapus_lowongan_permanent/'.$okei->id_lowongan) ?>">
+                                        <a href="<?= base_url('home/hapus_user_permanent/'.$okei->id_user) ?>">
                                             <button class="btn btn-secondary">Delete</button>
                                         </a>
                                             </td>

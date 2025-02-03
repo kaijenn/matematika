@@ -3,7 +3,7 @@
         <div class="col-12 col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Tambah User PT. Matcha Qiong</h4>
+                    <h4 class="card-title">Tambah User</h4>
                 </div>
                 <div class="card-body">
                     <!-- Form Utama -->
@@ -23,21 +23,17 @@
                                         <input type="text" class="form-control" name="email" placeholder="Masukkan Nama Lowongan" required>
                                     </div>
 
-                                    <div class="col-md-7 mb-3">
-                                        <label for="nama_siswa">Nomor Telefon:</label>
-                                        <input type="text" class="form-control" name="nohp" placeholder="Masukkan Nama Lowongan" required>
-                                    </div>
+                                    
 
                                     <div class="col-md-7 mb-3">
-                                    <label for="nama_jurusan">Level:</label>
-                                        <select class="form-control" name="level" id="level">
-                                            <option value="">Pilih</option>
-                                            <?php foreach ($yoga as $item): ?>
-                                                <option value="<?= $item->id_level ?>"><?= $item->level ?></option>
-                                            <?php endforeach; ?>
-                                        </select>
+    <label for="level">Level:</label>
+    <select class="form-control" name="level" id="level">
+        <option value="">Pilih</option>
+        <option value="admin">Admin</option>
+        <option value="pengguna">Pengguna</option>
+    </select>
+</div>
 
-                                    </div> 
 
 
                                 </div>

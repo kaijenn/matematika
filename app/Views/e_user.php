@@ -23,22 +23,17 @@
                                         <input type="text" class="form-control" name="email" value="<?= $oke->email ?>" required>
                                     </div>
 
-                                    <div class="col-md-7 mb-3">
-                                        <label for="nama_siswa">Nomor Telefon:</label>
-                                        <input type="text" class="form-control" name="nohp" value="<?= $oke->nohp ?>"    required>
-                                    </div>
+                                   
 
                                     <div class="col-md-7 mb-3">
-                                    <label for="email-id-vertical">level:</label>
-                            <select class="form-control" name="level" required>
-                                <?php foreach ($yoga as $item): ?>
-                                    <option value="<?= $item->id_level ?>" 
-                                        <?= $oke->id_level == $item->id_level ? 'selected' : ''; ?>>
-                                        <?= $item->level ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            </select>
-                                    </div>
+    <label for="level">Level:</label>
+    <select class="form-control" name="level" id="level">
+        <option value="">Pilih</option>
+        <option value="admin" <?= ($currentLevel == 'admin') ? 'selected' : '' ?>>Admin</option>
+        <option value="pengguna" <?= ($currentLevel == 'pengguna') ? 'selected' : '' ?>>Pengguna</option>
+    </select>
+</div>
+
 
 
                                 </div>

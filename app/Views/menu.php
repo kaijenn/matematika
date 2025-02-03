@@ -21,30 +21,30 @@
 
                         <!-- Dashboard -->
                         <li class="sidebar-item <?= ($currentUri == 'home/dashboard') ? 'active' : '' ?>">
-        <a href="<?= base_url('home/dashboard') ?>" class='sidebar-link'>
-            <i class="bi bi-speedometer2"></i>
-            <span>Dashboard</span>
-        </a>
-    </li>
+                            <a href="<?= base_url('home/dashboard') ?>" class='sidebar-link'>
+                                <i class="bi bi-house-door-fill"></i>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
 
     <!-- Lowongan -->
     <li class="sidebar-item has-sub <?= (in_array($currentUri, ['home/modal_produksi', 'home/penjualan_produk', 'home/pengeluaran', 'home/laporan_keuangan'])) ? 'active' : '' ?>">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-file-earmark-medical-fill"></i>
-                                <span>Luas</span>
+                                <span>Luas Bangun Datar</span>
                             </a>
                             <ul class="submenu">
-                                <li class="submenu-item <?= ($currentUri == 'home/persegi') ? 'active' : '' ?>">
-                                    <a href="<?= base_url('home/persegi') ?>">Persegi</a>
+                                <li class="submenu-item <?= ($currentUri == 'home/l_persegi') ? 'active' : '' ?>">
+                                    <a href="<?= base_url('home/l_persegi') ?>">Persegi</a>
                                 </li>
-                                <li class="submenu-item <?= ($currentUri == 'home/surat_keluar') ? 'active' : '' ?>">
-                                    <a href="<?= base_url('home/surat_keluar') ?>">Persegi Panjang</a>
+                                <li class="submenu-item <?= ($currentUri == 'home/l_persegi_panjang') ? 'active' : '' ?>">
+                                    <a href="<?= base_url('home/l_persegi_panjang') ?>">Persegi Panjang</a>
                                 </li>
-                                <li class="submenu-item <?= ($currentUri == 'home/surat_keterlambatan') ? 'active' : '' ?>">
-                                    <a href="<?= base_url('home/surat_keterlambatan') ?>">Segitiga</a>
+                                <li class="submenu-item <?= ($currentUri == 'home/l_segitiga') ? 'active' : '' ?>">
+                                    <a href="<?= base_url('home/l_segitiga') ?>">Segitiga</a>
                                 </li>
-                                <li class="submenu-item <?= ($currentUri == 'home/pengajuan_cuti') ? 'active' : '' ?>">
-                                    <a href="<?= base_url('home/pengajuan_cuti') ?>">Jajar Genjang</a>
+                                <li class="submenu-item <?= ($currentUri == 'home/l_jajar_genjang') ? 'active' : '' ?>">
+                                    <a href="<?= base_url('home/l_jajar_genjang') ?>">Jajar Genjang</a>
                                 </li>
                                 <li class="submenu-item <?= ($currentUri == 'home/pengajuan_cuti') ? 'active' : '' ?>">
                                     <a href="<?= base_url('home/pengajuan_cuti') ?>">Trapesium</a>
@@ -61,6 +61,33 @@
                             </ul>
                         </li>
 
+
+
+                        <li class="sidebar-item has-sub <?= (in_array($currentUri, ['home/modal_produksi', 'home/penjualan_produk', 'home/pengeluaran', 'home/laporan_keuangan'])) ? 'active' : '' ?>">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-file-earmark-medical-fill"></i>
+                                <span>Volume Bangun Ruang</span>
+                            </a>
+                            <ul class="submenu">
+                                <li class="submenu-item <?= ($currentUri == 'home/v_kubus') ? 'active' : '' ?>">
+                                    <a href="<?= base_url('home/v_kubus') ?>">Kubus</a>
+                                </li>
+                                <li class="submenu-item <?= ($currentUri == 'home/v_balok') ? 'active' : '' ?>">
+                                    <a href="<?= base_url('home/v_balok') ?>">Balok</a>
+                                </li>
+                                <li class="submenu-item <?= ($currentUri == 'home/v_tabung') ? 'active' : '' ?>">
+                                    <a href="<?= base_url('home/v_tabung') ?>">Tabung</a>
+                                </li>
+                                <li class="submenu-item <?= ($currentUri == 'home/v_kerucut') ? 'active' : '' ?>">
+                                    <a href="<?= base_url('home/v_kerucut') ?>">Kerucut</a>
+                                </li>
+                                <li class="submenu-item <?= ($currentUri == 'home/v_bola') ? 'active' : '' ?>">
+                                    <a href="<?= base_url('home/v_bola') ?>">Bola</a>
+                                </li>
+                                
+                            </ul>
+                        </li>
+
     <!-- Lamaran -->
     <!-- <li class="sidebar-item <?= ($currentUri == 'home/lamaran') ? 'active' : '' ?>">
         <a href="<?= base_url('home/lamaran') ?>" class='sidebar-link'>
@@ -69,7 +96,32 @@
         </a>
     </li> -->
 
-   
+    <li class="sidebar-item <?= ($currentUri == 'home/turunan') ? 'active' : '' ?>">
+                            <a href="<?= base_url('home/turunan') ?>" class='sidebar-link'>
+                                <i class="bi bi-file-earmark-text-fill"></i>
+                                <span>Turunan</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item <?= ($currentUri == 'home/limit') ? 'active' : '' ?>">
+                            <a href="<?= base_url('home/limit') ?>" class='sidebar-link'>
+                                <i class="bi bi-infinity"></i>
+                                <span>Limit</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item <?= ($currentUri == 'home/history') ? 'active' : '' ?>">
+    <a href="<?= base_url('home/history') ?>" class='sidebar-link'>
+    <i class="bi bi-hourglass-split"></i>
+    <!-- Updated icon for History -->
+        <span>History</span>
+    </a>
+</li>
+
+
+<?php
+      if (session()->get('level') == 'admin'){
+        ?>
 
     <li class="sidebar-item <?= ($currentUri == 'home/user') ? 'active' : '' ?>">
         <a href="<?= base_url('home/user') ?>" class='sidebar-link'>
@@ -109,6 +161,12 @@
             <span>Log Activity</span>
         </a>
     </li>
+
+    <?php 
+      } else {
+
+      }
+?>
 
 
 <li class="sidebar-item <?= ($currentUri == 'home/logout') ? 'active' : '' ?>">

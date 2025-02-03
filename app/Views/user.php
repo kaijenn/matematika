@@ -22,7 +22,6 @@
                                         <th>NO</th>
                                         <th>Username</th>
                                         <th>Email</th>
-                                        <th>Nomor Telepon</th>
                                         <th>Level</th>
                                         <th>Action</th>
                                     </tr>
@@ -36,7 +35,6 @@
                                             <td><?= $no++ ?></td>
                                             <td><?= ($okei->username) ?></td>
                                             <td><?= ($okei->email) ?></td>
-                                            <td><?= ($okei->nohp) ?></td>
                                             <td><?= ($okei->level) ?></td>
 
                                             <td>

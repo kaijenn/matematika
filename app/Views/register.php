@@ -26,7 +26,7 @@
                     <form action="<?= base_url('home/aksi_t_register') ?>" method="POST">
                         <label for="username">Username</label>
                         <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="text" class="form-control form-control-xl" placeholder="MASUKKAN NAMA LENGKAP" name="username">
+                            <input type="text" class="form-control form-control-xl" placeholder="Masukkan Nama Anda" name="username">
                             <div class="form-control-icon">
                                 <i class="bi bi-person"></i>
                             </div>
@@ -34,7 +34,7 @@
 
                         <label for="username">Password</label>
                         <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="password" class="form-control form-control-xl" placeholder="Password" name="password" id="password">
+                            <input type="password" class="form-control form-control-xl" placeholder="Masukkan Password Anda" name="password" id="password">
                             <div class="form-control-icon">
                                 <i class="bi bi-eye" id="toggle-password" style="cursor: pointer;"></i>
                             </div>
@@ -43,21 +43,11 @@
 
                         <label for="username">EMAIL</label>
                         <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="text" class="form-control form-control-xl" placeholder="MASUKKAN EMAIL" name="email">
+                            <input type="text" class="form-control form-control-xl" placeholder="Masukkan Email Anda" name="email">
                             <div class="form-control-icon">
                                 <i class="bi bi-person"></i>
                             </div>
                         </div>
-
-
-                        <label for="username">NOMOR TELEFON</label>
-                        <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="text" class="form-control form-control-xl" placeholder="MASUKKAN NOMOR TELEFON" name="nohp">
-                            <div class="form-control-icon">
-                                <i class="bi bi-person"></i>
-                            </div>
-                        </div>
-
 
 
 
