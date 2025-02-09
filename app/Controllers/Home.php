@@ -909,6 +909,67 @@ public function limit()
 }
 
 
+
+public function kalkulator()
+	{
+		$model= new M_siapake();
+
+		$where = array('id_setting' => '1');
+		$data['yogi'] = $model->getWhere1('setting', $where)->getRow();
+        $id_user = session()->get('id');
+    $activityLog = [
+        'id_user' => $id_user,
+        'menu' => 'Masuk ke Kalkulator',
+        'time' => date('Y-m-d H:i:s')
+    ];
+    $model->logActivity($activityLog);
+	echo view('header', $data);
+	echo view('menu');
+    echo view('kalkulator');
+    echo view('footer');
+	}
+
+
+    public function saveHistory()
+{
+    $model = new M_siapake(); // Memanggil model M_siapake
+
+    // Mengambil data JSON yang dikirimkan dari frontend
+    $data = $this->request->getJSON();
+
+    if ($data) {
+        // Ambil data perhitungan dan hasil dari request JSON
+        $perhitungan = $data->perhitungan;
+        $hasil = $data->hasil;
+
+        // Menyusun data yang akan disimpan ke dalam tabel history_perhitungan
+        $data_history = [
+            'id_user' => session()->get('id'),      // ID User dari session
+            'tanggal' => date('Y-m-d H:i:s'),       // Waktu saat ini
+            'hasil'   => $perhitungan . ' = ' . $hasil // Menyimpan hasil perhitungan dalam format "perhitungan = hasil"
+        ];
+
+        // Simpan data ke dalam tabel 'history_perhitungan' menggunakan method 'tambah' dari model
+        $saveStatus = $model->tambah('history_perhitungan', $data_history);
+
+        // Mengembalikan respons sukses atau gagal
+        if ($saveStatus) {
+            return $this->response->setJSON(['success' => true]);
+        } else {
+            return $this->response->setJSON(['success' => false]);
+        }
+    }
+
+    // Jika data tidak valid
+    return $this->response->setJSON(['success' => false]);
+}
+
+
+
+
+
+
+
 public function history()
 	{
 		$model= new M_siapake();

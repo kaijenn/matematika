@@ -118,6 +118,13 @@
     </a>
 </li>
 
+<li class="sidebar-item <?= ($currentUri == 'home/kalkulator') ? 'active' : '' ?>">
+                            <a href="<?= base_url('home/kalkulator') ?>" class='sidebar-link'>
+                                <i class="bi bi-house-door-fill"></i>
+                                <span>Kalkulator</span>
+                            </a>
+                        </li>
+
 
 <?php
       if (session()->get('level') == 'admin'){
